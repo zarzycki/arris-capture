@@ -9,8 +9,11 @@ DOMAIN = "www.comcast.com"
 RUNDATE = subprocess.getoutput("date \"+%F %T\"")
 
 print("Pinging %s ..." % DOMAIN, file=sys.stderr)
-command = "ping -q -t 810 %s" % DOMAIN
+command = "ping -q -w 810 %s" % DOMAIN
+print(command)
 output = subprocess.getoutput(command)
+print(output)
+
 for row in output.split('\n'):
   if '=' in row:
     timings = row.split('=')[1]
@@ -21,7 +24,7 @@ for row in output.split('\n'):
     time3 = timings.strip().split('/')[3]
     print(time0)
   if 'packet' in row:
-    transmit, receive, loss = row.split(',')
+    transmit, receive, loss, time = row.split(',')
     transmit=transmit.strip().split(' ')[0]
     receive=receive.strip().split(' ')[0]
     loss=loss.strip().split(' ')[0]
@@ -30,7 +33,7 @@ for row in output.split('\n'):
     print(receive)
     print(loss)
 
-thisFile='/Users/colin/Software/arris-capture/tmp/arris/ping_packetloss.csv' 
+thisFile='/home/colin/sw/arris-capture/tmp/arris/ping_packetloss.csv' 
 if not os.path.isfile(thisFile):
   existflag=False
 else:
@@ -50,7 +53,7 @@ with open(thisFile, 'a', newline='') as f:
 
 ###################################################################################
 
-thisFile='/Users/colin/Software/arris-capture/tmp/arris/ping_timings.csv' 
+thisFile='/home/colin/sw/arris-capture/tmp/arris/ping_timings.csv' 
 if not os.path.isfile(thisFile):
   existflag=False
 else:

@@ -34,10 +34,10 @@
 ###############               Configuration            #####################
 # TEMP is the full path to the temp file wget will grab from your modem.
 #      it is recommended to use something in tmpfs like /tmp for example.
-TEMP=/Users/colin/Software/arris-capture/tmp/snapshot.html
+TEMP=/home/colin/sw/arris-capture/tmp/snapshot.html
 
 # LOGPATH is the full path to the log file you will keep.
-LOGPATH=/Users/colin/Software/arris-capture/tmp/arris
+LOGPATH=/home/colin/sw/arris-capture/tmp/arris
 
 # If you want to log all html snapshots set KEEPTHEM to any value
 # Be sure that you have sufficient storage for this as files are around 5 Kb
@@ -59,8 +59,8 @@ RUNDATE=$(date "+%F %T")
 [[ -f "$TEMP" ]] && rm -f "$TEMP"
 
 # try to get stats 6 times waiting 10 sec per time
-##wget -q -T 10 -t 6 http://192.168.100.1/RgConnect.asp -O $TEMP || fail
-wget -q --no-check-certificate -T 10 -t 6 http://192.168.100.1/cgi-bin/status_cgi -O $TEMP || fail
+wget -q -T 10 -t 6 http://192.168.100.1/RgConnect.asp -O $TEMP || fail
+#wget -q --no-check-certificate -T 10 -t 6 http://192.168.100.1/cgi-bin/status_cgi -O $TEMP || fail
 
 if [[ -n "$KEEPTHEM" ]]; then
 	SAVE="$LOGPATH/snapshots"
